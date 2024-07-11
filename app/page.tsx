@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
+import LoginPage from "./login/page";
 
-function LoginPage() {
+function MainPage() {
   return <LoginPage />;
 }
 
-export default LoginPage;
+export default MainPage;
