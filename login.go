@@ -34,15 +34,19 @@ func (ctx *Context) InitLogin() {
 		},
 	)
 
-	defer login.Body.Close()
-
 	if err != nil {
 		panic(err)
 	}
+
+	login.Body.Close()
 }
 
 func (ctx *Context) GetCaptcha() io.Reader {
-	res, _ := ctx.Get("https://portal.aut.ac.ir/aportal/PassImageServlet")
+	res, err := ctx.Get("https://portal.aut.ac.ir/aportal/PassImageServlet")
+
+  if err != nil {
+    panic(err)
+  }
 
 	if res.StatusCode == 200 {
 		return res.Body
@@ -65,15 +69,15 @@ func (ctx *Context) Login(username, password string) error {
 		},
 	)
 
-	defer data.Body.Close()
+	if err != nil {
+		panic(err)
+	}
+
+  defer data.Body.Close()
 
 	if data.StatusCode != 200 {
 		fmt.Println(data.StatusCode)
 		return errors.New(data.Status)
-	}
-
-	if err != nil {
-		panic(err)
 	}
 
 	body, _ := io.ReadAll(data.Body)
