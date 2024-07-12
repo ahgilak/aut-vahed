@@ -13,7 +13,7 @@ func main() {
 
 	flag.StringVar(&username, "username", "", "username")
 	flag.StringVar(&password, "password", "", "password")
-	flag.StringVar(&courses_str, "courses", "", "a space seperated list of course and group joined by underline like 1021303_100")
+	flag.StringVar(&courses_str, "courses", "", "a space seperated list of courses, course id is like 1021303_100__")
 	flag.Parse()
 
   if username == "" || password == "" || courses_str == "" {
@@ -35,7 +35,7 @@ func main() {
 
 	for _, c := range courses {
 		for {
-			err := ctx.AddCourse(c + "__")
+			err := ctx.AddCourse(c)
 			if err == nil {
 				break
 			}
